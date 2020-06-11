@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimen_8dp">8dp</dimen>
+    <dimen name="dimen_14sp">14sp</dimen>
+    <dimen name="dimen_42sp">42sp</dimen>
+    <dimen name="dimen_16sp">16sp</dimen>
+    <dimen name="dimen_60dp">60dp</dimen>
+    <dimen name="dimen_45dp">45dp</dimen>
+    <dimen name="dimen_24sp">24sp</dimen>
+    <dimen name="dimen_24dp">24dp</dimen>
+    <dimen name="dimen_10sp">10sp</dimen>
+    <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="cell_width">80dp</dimen>
+    <dimen name="cell_countries_title_w">120dp</dimen>
+    <dimen name="dimen_36sp">36sp</dimen>
+    <dimen name="dimen_12sp">12sp</dimen>
+</resources>
