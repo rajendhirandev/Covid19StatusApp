@@ -46,6 +46,7 @@ class HomeCovidFragment : Fragment() {
     /* References
     https://medium.com/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda
     https://medium.com/androiddevelopers/repeatonlifecycle-api-design-story-8670d1a7d333
+    https://www.linkedin.com/pulse/kotlin-flow-simplified-paul-emeka?trk=public_profile_article_view
     */
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
