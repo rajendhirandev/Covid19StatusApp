@@ -47,6 +47,7 @@ class HomeCovidFragment : Fragment() {
     https://medium.com/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda
     https://medium.com/androiddevelopers/repeatonlifecycle-api-design-story-8670d1a7d333
     https://www.linkedin.com/pulse/kotlin-flow-simplified-paul-emeka?trk=public_profile_article_view
+    https://logidots.com/insights/live-data-flow-shared-flow-state-flow-2/#:~:text=The%20main%20difference%20between%20a,and%20emits%20nothing%20by%20default.
     */
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
