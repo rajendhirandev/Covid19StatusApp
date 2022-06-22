@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.covid19.databinding.HomeCovidFragmentBinding
@@ -17,6 +20,7 @@ import com.practice.covid19.network.Resource
 import com.practice.covid19.network.Status
 import com.practice.covid19.utils.numberFormat
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class HomeCovidFragment : Fragment() {
 
@@ -39,8 +43,13 @@ class HomeCovidFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    /* References
+    https://medium.com/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda
+    https://medium.com/androiddevelopers/repeatonlifecycle-api-design-story-8670d1a7d333
+    */
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.apply {
             rvCovidStatus.apply {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
@@ -54,9 +63,27 @@ class HomeCovidFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.summaryData.collectLatest {
-                updateView(it)
+        /*viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.summaryStateFlow
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collectLatest {
+                    updateView(it)
+                }
+        }*/
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.summaryStateFlow
+                        .collectLatest {
+                            updateView(it)
+                        }
+                }
+                launch {
+                    viewModel.summarySharedFlow.collectLatest {
+                        updateView(it)
+                    }
+                }
             }
         }
 

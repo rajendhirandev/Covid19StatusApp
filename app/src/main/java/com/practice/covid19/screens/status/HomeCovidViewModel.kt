@@ -14,23 +14,27 @@ class HomeCovidViewModel : ViewModel() {
     private val _summaryLiveData = MutableLiveData(Resource.loading(Summary()))
     val summaryLiveData = _summaryLiveData as LiveData<Resource<Summary>>
 
-    private val _summaryData = MutableStateFlow(Resource.loading(Summary()))
-    val summaryData = _summaryData as StateFlow<Resource<Summary>>
+    private val _summaryStateFlow = MutableStateFlow(Resource.loading(Summary()))
+    val summaryStateFlow = _summaryStateFlow as StateFlow<Resource<Summary>>
+
+    private val _summarySharedFlow = MutableSharedFlow<Resource<Summary>>()
+    val summarySharedFlow = _summarySharedFlow as SharedFlow<Resource<Summary>>
+
 
     fun getCovidStatusStateFlowOn() {
+        _summaryStateFlow.value = Resource.loading(null)
         viewModelScope.launch {
-            _summaryData.emit(Resource.loading(null))
             getFlowStatus()
                 .catch { e ->
                     e.message?.let {
-                        _summaryData.emit(Resource.error(it))
+                        _summaryStateFlow.emit(Resource.error(it))
                     }
                 }.flowOn(Dispatchers.IO)
                 .collectLatest {
                     it.takeIf { it.isSuccessful }?.let {
-                        _summaryData.emit(Resource.success(it.body() as Summary))
+                        _summaryStateFlow.emit(Resource.success(it.body() as Summary))
                     } ?: kotlin.run {
-                        _summaryData.emit(Resource.error("Error", null))
+                        _summaryStateFlow.emit(Resource.error("Error", null))
                     }
                 }
         }
@@ -41,20 +45,38 @@ class HomeCovidViewModel : ViewModel() {
         emit(APIClient.createService(tClass = CovidStatusAPI::class.java).getCountriesSummary())
     }
 
-    fun getCovidStatusStateFlow() {
+    fun getCovidStatusSharedFlow() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _summaryData.emit(Resource.loading(null))
+                _summarySharedFlow.emit(Resource.loading(null))
                 val summaryResponse =
                     APIClient.createService(tClass = CovidStatusAPI::class.java)
                         .getCountriesSummary()
                 summaryResponse.takeIf { it.isSuccessful }?.let {
-                    _summaryData.emit(Resource.success(it.body() as Summary))
+                    _summarySharedFlow.emit(Resource.success(it.body() as Summary))
                 } ?: kotlin.run {
-                    _summaryData.emit(Resource.error("Error", null))
+                    _summarySharedFlow.emit(Resource.error("Error", null))
                 }
             } catch (e: Exception) {
-                _summaryLiveData.postValue(Resource.error(e.message ?: "Err", null))
+                _summarySharedFlow.emit(Resource.error(e.message ?: "Err", null))
+            }
+        }
+    }
+
+    fun getCovidStatusStateFlow() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _summaryStateFlow.emit(Resource.loading(null))
+                val summaryResponse =
+                    APIClient.createService(tClass = CovidStatusAPI::class.java)
+                        .getCountriesSummary()
+                summaryResponse.takeIf { it.isSuccessful }?.let {
+                    _summaryStateFlow.emit(Resource.success(it.body() as Summary))
+                } ?: kotlin.run {
+                    _summaryStateFlow.emit(Resource.error("Error", null))
+                }
+            } catch (e: Exception) {
+                _summaryStateFlow.value = Resource.error(e.message ?: "Err", null)
             }
         }
     }
