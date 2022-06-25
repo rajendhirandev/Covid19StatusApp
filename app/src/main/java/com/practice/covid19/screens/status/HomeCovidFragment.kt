@@ -7,10 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.covid19.databinding.HomeCovidFragmentBinding
@@ -18,9 +14,8 @@ import com.practice.covid19.model.Global
 import com.practice.covid19.model.Summary
 import com.practice.covid19.network.Resource
 import com.practice.covid19.network.Status
+import com.practice.covid19.utils.launchAndCollectIn
 import com.practice.covid19.utils.numberFormat
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class HomeCovidFragment : Fragment() {
 
@@ -73,20 +68,28 @@ class HomeCovidFragment : Fragment() {
                 }
         }*/
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.summaryStateFlow
-                        .collectLatest {
-                            updateView(it)
-                        }
-                }
-                launch {
-                    viewModel.summarySharedFlow.collectLatest {
-                        updateView(it)
-                    }
-                }
-            }
+        /* viewLifecycleOwner.lifecycleScope.launch {
+             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                 launch {
+                     viewModel.summaryStateFlow
+                         .collectLatest {
+                             updateView(it)
+                         }
+                 }
+                 launch {
+                     viewModel.summarySharedFlow.collectLatest {
+                         updateView(it)
+                     }
+                 }
+             }
+         }*/
+
+        viewModel.summarySharedFlow.launchAndCollectIn(viewLifecycleOwner) {
+            updateView(it)
+        }
+
+        viewModel.summaryStateFlow.launchAndCollectIn(viewLifecycleOwner) {
+            updateView(it)
         }
 
         viewModel.summaryLiveData.observe(viewLifecycleOwner) {
