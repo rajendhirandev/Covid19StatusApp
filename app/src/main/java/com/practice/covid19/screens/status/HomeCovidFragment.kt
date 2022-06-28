@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.covid19.databinding.HomeCovidFragmentBinding
@@ -26,6 +27,7 @@ class HomeCovidFragment : Fragment() {
     }
 
     private val viewModel: HomeCovidViewModel by viewModels()
+    //private lateinit var viewM:HomeCovidViewModel
     private val statusAdapter: HomeCovidStatusAdapter by lazy {
         HomeCovidStatusAdapter()
     }
@@ -47,6 +49,7 @@ class HomeCovidFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //viewM = ViewModelProvider(this).get(HomeCovidViewModel::class.java)
         binding.apply {
             rvCovidStatus.apply {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
