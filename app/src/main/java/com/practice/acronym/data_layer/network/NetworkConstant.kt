@@ -1,4 +1,4 @@
-package com.practice.acronym.network
+package com.practice.acronym.data_layer.network
 
 object NetworkConstant {
     const val DNS_UNAVAILABLE = 503

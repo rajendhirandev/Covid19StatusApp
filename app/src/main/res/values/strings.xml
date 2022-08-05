@@ -4,4 +4,5 @@
     <string name="splash_title">Acromine Acronym</string>
     <string name="no_data">No Data Available</string>
     <string name="err_admin">Something went wrong.. Please contact the admin</string>
+    <string name="search_acronym">Search your acronym here</string>
 </resources>

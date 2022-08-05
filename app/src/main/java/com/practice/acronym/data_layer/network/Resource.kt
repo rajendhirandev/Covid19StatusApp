@@ -1,4 +1,4 @@
-package com.practice.acronym.network
+package com.practice.acronym.data_layer.network
 
 /**
  * A generic class that holds a value with its loading status.

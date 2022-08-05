@@ -1,14 +1,14 @@
-package com.practice.acronym.screens.status
+package com.practice.acronym.presentation.screens.acronym
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.acronym.databinding.MeaningsItemViewBinding
-import com.practice.acronym.model.Meanings
-import com.practice.acronym.screens.status.MeaningAdapter.MeaningVH
-import com.practice.acronym.utils.capitalizeWord
+import com.practice.acronym.data_layer.model.Meanings
+import com.practice.acronym.presentation.screens.acronym.AcronymMeaningAdapter.MeaningVH
+import com.practice.acronym.domain_layer.utils.capitalizeWord
 
-class MeaningAdapter : RecyclerView.Adapter<MeaningVH>() {
+class AcronymMeaningAdapter : RecyclerView.Adapter<MeaningVH>() {
 
     private var meanings: List<Meanings> = ArrayList()
 

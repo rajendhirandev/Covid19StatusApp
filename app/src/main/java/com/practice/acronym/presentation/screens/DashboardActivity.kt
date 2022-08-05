@@ -1,12 +1,12 @@
-package com.practice.acronym.screens
+package com.practice.acronym.presentation.screens
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.practice.acronym.R
 import com.practice.acronym.databinding.ActivityHomeBinding
-import com.practice.acronym.screens.status.AcronymFragment
+import com.practice.acronym.presentation.screens.acronym.AcronymFragment
 
-class HomeActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity() {
     lateinit var homeBinding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,9 +1,9 @@
-package com.practice.acronym.network
+package com.practice.acronym.data_layer.network
 
 import com.google.gson.GsonBuilder
-import com.practice.acronym.network.NetworkConstant.CONNECTION_TIMEOUT
-import com.practice.acronym.network.NetworkConstant.READ_TIMEOUT
-import com.practice.acronym.network.NetworkConstant.WRITE_TIMEOUT
+import com.practice.acronym.data_layer.network.NetworkConstant.CONNECTION_TIMEOUT
+import com.practice.acronym.data_layer.network.NetworkConstant.READ_TIMEOUT
+import com.practice.acronym.data_layer.network.NetworkConstant.WRITE_TIMEOUT
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

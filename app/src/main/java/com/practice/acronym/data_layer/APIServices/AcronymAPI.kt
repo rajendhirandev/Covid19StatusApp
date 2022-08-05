@@ -1,6 +1,6 @@
-package com.practice.acronym.APIServices
+package com.practice.acronym.data_layer.APIServices
 
-import com.practice.acronym.model.Acronym
+import com.practice.acronym.data_layer.model.Acronym
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

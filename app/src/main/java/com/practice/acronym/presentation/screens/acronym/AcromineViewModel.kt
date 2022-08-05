@@ -1,16 +1,19 @@
-package com.practice.acronym.screens.status
+package com.practice.acronym.presentation.screens.acronym
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.practice.acronym.APIServices.AcronymAPI
-import com.practice.acronym.model.Acronym
-import com.practice.acronym.network.APIClient
-import com.practice.acronym.network.Resource
+import com.practice.acronym.data_layer.APIServices.AcronymAPI
+import com.practice.acronym.data_layer.model.Acronym
+import com.practice.acronym.data_layer.network.APIClient
+import com.practice.acronym.data_layer.network.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class AcromineViewModel : ViewModel() {
+
+    var acrSearchJob: Job? = null
 
     private val _meaningFlow = MutableSharedFlow<Resource<List<Acronym>>>()
     val meaningFlow = _meaningFlow as SharedFlow<Resource<List<Acronym>>>
@@ -34,7 +37,8 @@ class AcromineViewModel : ViewModel() {
     }*/
 
     fun getMeaningsFlow(searchAbbr: String) {
-        viewModelScope.launch {
+        acrSearchJob?.cancel()
+        acrSearchJob = viewModelScope.launch {
             _meaningFlow.emit(Resource.loading(null))
             getFlowStatus(searchAbbr)
                 .catch { e ->

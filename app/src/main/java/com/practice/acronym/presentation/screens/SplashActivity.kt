@@ -1,4 +1,4 @@
-package com.practice.acronym.screens
+package com.practice.acronym.presentation.screens
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         Handler().postDelayed({
-            startActivity(Intent(this, HomeActivity::class.java))
+            startActivity(Intent(this, DashboardActivity::class.java))
             finish()
         }, TimeUnit.SECONDS.toMillis(SPLASH_SECONDS))
     }

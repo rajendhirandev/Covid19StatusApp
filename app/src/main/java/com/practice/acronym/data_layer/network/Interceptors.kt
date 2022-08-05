@@ -1,4 +1,4 @@
-package com.practice.acronym.network
+package com.practice.acronym.data_layer.network
 
 import okhttp3.ConnectionPool
 import okhttp3.Interceptor

@@ -1,4 +1,4 @@
-package com.practice.acronym.utils
+package com.practice.acronym.domain_layer.utils
 
 import android.content.Context
 import android.widget.Toast
