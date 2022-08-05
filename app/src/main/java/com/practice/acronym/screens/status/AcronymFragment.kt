@@ -44,16 +44,17 @@ class AcronymFragment : Fragment() {
             }
 
             abbrBtn.setOnClickListener {
+                meaningAdapter.setData(emptyList())
                 val acronymInput = acronymInput.text.toString()
                 acronymInput.length.takeIf { it > 0 }?.let {
-                    viewModel.getMeanings(acronymInput)
+                    viewModel.getMeaningsFlow(acronymInput)
                 } ?: kotlin.run {
                     Toast.makeText(context, "Please enter the acronym", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        viewModel.meaningStateFlow.launchAndCollectIn(viewLifecycleOwner) {
+        viewModel.meaningFlow.launchAndCollectIn(viewLifecycleOwner) {
             updateView(it)
         }
     }
@@ -66,7 +67,7 @@ class AcronymFragment : Fragment() {
             Status.SUCCESS -> {
                 binding.progressBar.visibility = View.GONE
                 res.data?.takeIf { it.isNotEmpty() }?.let {
-                    it.get(0).let {
+                    it[0].let {
                         it.lfs?.let {
                             meaningAdapter.setData(it)
                         } ?: kotlin.run {
