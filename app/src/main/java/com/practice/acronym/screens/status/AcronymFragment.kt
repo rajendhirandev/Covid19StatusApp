@@ -1,4 +1,4 @@
-package com.practice.covid19.screens.status
+package com.practice.acronym.screens.status
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,13 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.practice.covid19.R
-import com.practice.covid19.databinding.AcronymFragmentBinding
-import com.practice.covid19.model.Acronym
-import com.practice.covid19.network.Resource
-import com.practice.covid19.network.Status
-import com.practice.covid19.utils.launchAndCollectIn
-import com.practice.covid19.utils.toastMsg
+import com.practice.acronym.R
+import com.practice.acronym.databinding.AcronymFragmentBinding
+import com.practice.acronym.model.Acronym
+import com.practice.acronym.network.Resource
+import com.practice.acronym.network.Status
+import com.practice.acronym.utils.launchAndCollectIn
+import com.practice.acronym.utils.toastMsg
 
 class AcronymFragment : Fragment() {
 

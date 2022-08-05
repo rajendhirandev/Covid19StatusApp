@@ -1,4 +1,4 @@
-package com.practice.covid19.network
+package com.practice.acronym.network
 
 /**
  * A generic class that holds a value with its loading status.

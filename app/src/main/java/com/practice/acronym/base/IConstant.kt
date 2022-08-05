@@ -1,4 +1,4 @@
-package com.practice.covid19.base
+package com.practice.acronym.base
 
 
 object IConstant {

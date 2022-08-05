@@ -1,13 +1,14 @@
-package com.practice.covid19.screens.status
+package com.practice.acronym.screens.status
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.practice.covid19.APIServices.AcronymAPI
-import com.practice.covid19.model.Acronym
-import com.practice.covid19.network.APIClient
-import com.practice.covid19.network.Resource
+import com.practice.acronym.APIServices.AcronymAPI
+import com.practice.acronym.model.Acronym
+import com.practice.acronym.network.APIClient
+import com.practice.acronym.network.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 

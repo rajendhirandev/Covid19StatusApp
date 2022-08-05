@@ -1,12 +1,12 @@
-package com.practice.covid19.screens.status
+package com.practice.acronym.screens.status
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.practice.covid19.databinding.MeaningsItemViewBinding
-import com.practice.covid19.model.Meanings
-import com.practice.covid19.screens.status.MeaningAdapter.MeaningVH
-import com.practice.covid19.utils.capitalizeWord
+import com.practice.acronym.databinding.MeaningsItemViewBinding
+import com.practice.acronym.model.Meanings
+import com.practice.acronym.screens.status.MeaningAdapter.MeaningVH
+import com.practice.acronym.utils.capitalizeWord
 
 class MeaningAdapter : RecyclerView.Adapter<MeaningVH>() {
 

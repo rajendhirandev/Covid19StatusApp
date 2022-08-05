@@ -1,4 +1,4 @@
-package com.practice.covid19.utils
+package com.practice.acronym.utils
 
 import android.content.Context
 import android.widget.Toast

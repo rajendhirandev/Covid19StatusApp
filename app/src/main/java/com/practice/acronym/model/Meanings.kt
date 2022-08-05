@@ -1,4 +1,4 @@
-package com.practice.covid19.model
+package com.practice.acronym.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

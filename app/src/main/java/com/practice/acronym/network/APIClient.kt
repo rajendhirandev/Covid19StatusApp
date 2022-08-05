@@ -1,9 +1,9 @@
-package com.practice.covid19.network
+package com.practice.acronym.network
 
 import com.google.gson.GsonBuilder
-import com.practice.covid19.network.NetworkConstant.CONNECTION_TIMEOUT
-import com.practice.covid19.network.NetworkConstant.READ_TIMEOUT
-import com.practice.covid19.network.NetworkConstant.WRITE_TIMEOUT
+import com.practice.acronym.network.NetworkConstant.CONNECTION_TIMEOUT
+import com.practice.acronym.network.NetworkConstant.READ_TIMEOUT
+import com.practice.acronym.network.NetworkConstant.WRITE_TIMEOUT
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

@@ -1,6 +1,6 @@
-package com.practice.covid19.APIServices
+package com.practice.acronym.APIServices
 
-import com.practice.covid19.model.Acronym
+import com.practice.acronym.model.Acronym
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

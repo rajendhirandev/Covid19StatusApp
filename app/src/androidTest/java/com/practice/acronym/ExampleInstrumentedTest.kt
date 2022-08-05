@@ -1,4 +1,4 @@
-package com.practice.covid19
+package com.practice.acronym
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

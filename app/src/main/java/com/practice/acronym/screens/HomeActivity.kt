@@ -1,10 +1,10 @@
-package com.practice.covid19.screens
+package com.practice.acronym.screens
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.practice.covid19.R
-import com.practice.covid19.databinding.ActivityHomeBinding
-import com.practice.covid19.screens.status.AcronymFragment
+import com.practice.acronym.R
+import com.practice.acronym.databinding.ActivityHomeBinding
+import com.practice.acronym.screens.status.AcronymFragment
 
 class HomeActivity : AppCompatActivity() {
     lateinit var homeBinding: ActivityHomeBinding

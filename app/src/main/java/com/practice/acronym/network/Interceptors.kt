@@ -1,4 +1,4 @@
-package com.practice.covid19.network
+package com.practice.acronym.network
 
 import okhttp3.ConnectionPool
 import okhttp3.Interceptor

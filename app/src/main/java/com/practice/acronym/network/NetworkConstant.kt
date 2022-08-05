@@ -1,4 +1,4 @@
-package com.practice.covid19.network
+package com.practice.acronym.network
 
 object NetworkConstant {
     const val DNS_UNAVAILABLE = 503

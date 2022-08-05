@@ -1,11 +1,11 @@
-package com.practice.covid19.screens
+package com.practice.acronym.screens
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.practice.covid19.R
-import com.practice.covid19.base.IConstant.SPLASH_SECONDS
+import com.practice.acronym.R
+import com.practice.acronym.base.IConstant.SPLASH_SECONDS
 import java.util.concurrent.TimeUnit
 
 class SplashActivity : AppCompatActivity() {
