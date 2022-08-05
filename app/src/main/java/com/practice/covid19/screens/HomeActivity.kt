@@ -4,12 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.practice.covid19.R
 import com.practice.covid19.databinding.ActivityHomeBinding
-import com.practice.covid19.screens.status.HomeCovidFragment
+import com.practice.covid19.screens.status.AcronymFragment
 
-/*
-Author: Rajendhiran Easu
-Date: 24-Apr-20
-*/
 class HomeActivity : AppCompatActivity() {
     lateinit var homeBinding: ActivityHomeBinding
 
@@ -19,7 +15,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(homeBinding.root)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, HomeCovidFragment.newInstance()).commitNow()
+                .replace(R.id.container, AcronymFragment.newInstance()).commitNow()
         }
     }
 }

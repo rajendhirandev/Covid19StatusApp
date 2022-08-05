@@ -10,13 +10,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-/*
-Author: Rajendhiran Easu
-Date: 05-May-20
-*/
 object APIClient {
 
-    private const val BASE_URL = "https://api.covid19api.com"
+    //private const val BASE_URL = "https://api.covid19api.com"
+    private const val BASE_URL = "http://www.nactem.ac.uk/software/"
 
     private val connectionPool by lazy {
         ConnectionPool()

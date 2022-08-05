@@ -5,10 +5,6 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 
-/*
-Author: Rajendhiran Easu
-Date: 05-May-20
-*/
 object Interceptors {
 
     fun headerInterceptors(headers: Map<String, String>?) = Interceptor {

@@ -55,7 +55,7 @@ ext {
     gsonVersion = '2.8.9'
     retrofit2 = '2.7.0'
     gson = '2.8.1'
-    okhttp3 = '4.2.2'
+    okhttp3 = '4.9.3'
     glideVersion = '4.9.0'
     lifecycle_version = "2.5.0-rc02"
     lifecycle_runtime_version = "2.4.1"

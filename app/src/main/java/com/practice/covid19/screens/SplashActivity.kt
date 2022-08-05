@@ -8,10 +8,6 @@ import com.practice.covid19.R
 import com.practice.covid19.base.IConstant.SPLASH_SECONDS
 import java.util.concurrent.TimeUnit
 
-/*
-Author: Rajendhiran Easu
-Date: 24-Apr-20
-*/
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
