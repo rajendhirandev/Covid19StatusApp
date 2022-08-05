@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.practice.acronym.R
-import com.practice.acronym.base.IConstant.SPLASH_SECONDS
+import com.practice.acronym.domain_layer.base.IConstant.SPLASH_SECONDS
 import java.util.concurrent.TimeUnit
 
 class SplashActivity : AppCompatActivity() {

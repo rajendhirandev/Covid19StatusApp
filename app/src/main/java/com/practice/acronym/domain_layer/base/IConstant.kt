@@ -1,4 +1,4 @@
-package com.practice.acronym.base
+package com.practice.acronym.domain_layer.base
 
 
 object IConstant {
