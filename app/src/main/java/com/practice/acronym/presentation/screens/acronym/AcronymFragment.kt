@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.acronym.R
-import com.practice.acronym.databinding.AcronymFragmentBinding
 import com.practice.acronym.data_layer.model.Acronym
 import com.practice.acronym.data_layer.network.Resource
 import com.practice.acronym.data_layer.network.Status
+import com.practice.acronym.databinding.AcronymFragmentBinding
 import com.practice.acronym.domain_layer.utils.launchAndCollectIn
 import com.practice.acronym.domain_layer.utils.toastMsg
 
@@ -28,8 +28,7 @@ class AcronymFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = AcronymFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -38,15 +37,16 @@ class AcronymFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            searchView.isActivated = true
-            searchView.onActionViewExpanded()
+            searchView.apply {
+                isActivated = true
+                onActionViewExpanded()
+                setOnQueryTextListener(meaningSearchListener)
+            }
             meaningRv.apply {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
                 adapter = meaningAdapter
             }
-
-            searchView.setOnQueryTextListener(meaningSearchListener)
         }
         viewModel.meaningFlow.launchAndCollectIn(viewLifecycleOwner) {
             updateView(it)
