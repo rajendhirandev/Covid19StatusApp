@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Source/Practice/Covid19_App/app/src/main/res/layout/acronym_fragment.xml" value="0.1734375" />
+        <entry key="..\:/Source/Practice/Covid19_App/app/src/main/res/layout/acronym_fragment.xml" value="0.33" />
         <entry key="..\:/Source/Practice/Covid19_App/app/src/main/res/layout/activity_home.xml" value="0.18802083333333333" />
+        <entry key="..\:/Source/Practice/Covid19_App/app/src/main/res/layout/activity_splash.xml" value="0.25" />
+        <entry key="..\:/Source/Practice/Covid19_App/app/src/main/res/layout/covid_status_item_view.xml" value="0.25" />
         <entry key="..\:/Source/Practice/Covid19_App/app/src/main/res/layout/home_covid_fragment.xml" value="0.1734375" />
+        <entry key="..\:/Source/Practice/Covid19_App/app/src/main/res/layout/meanings_item_view.xml" value="0.25" />
       </map>
     </option>
   </component>

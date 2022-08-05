@@ -1,28 +1,30 @@
 package com.practice.covid19.screens.status
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.practice.covid19.R
 import com.practice.covid19.databinding.AcronymFragmentBinding
 import com.practice.covid19.model.Acronym
 import com.practice.covid19.network.Resource
 import com.practice.covid19.network.Status
 import com.practice.covid19.utils.launchAndCollectIn
+import com.practice.covid19.utils.toastMsg
 
 class AcronymFragment : Fragment() {
 
     lateinit var binding: AcronymFragmentBinding
-    private val viewModel: HomeCovidViewModel by viewModels()
-   /* private val statusAdapter: HomeCovidStatusAdapter by lazy {
-        HomeCovidStatusAdapter()
-    }*/
+    private val viewModel: AcromineViewModel by viewModels()
+    private val meaningAdapter: MeaningAdapter by lazy {
+        MeaningAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,13 +37,19 @@ class AcronymFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            rvCovidStatus.apply {
+            meaningRv.apply {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-               /* adapter = statusAdapter*/
+                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+                adapter = meaningAdapter
             }
 
-            logo.setOnClickListener {
-                viewModel.getMeanings("BBC")
+            abbrBtn.setOnClickListener {
+                val acronymInput = acronymInput.text.toString()
+                acronymInput.length.takeIf { it > 0 }?.let {
+                    viewModel.getMeanings(acronymInput)
+                } ?: kotlin.run {
+                    Toast.makeText(context, "Please enter the acronym", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -57,24 +65,21 @@ class AcronymFragment : Fragment() {
             }
             Status.SUCCESS -> {
                 binding.progressBar.visibility = View.GONE
-                res.data?.get(0)?.let {
-                    it.lfs?.let {
-                        it.forEach {
-                            Log.d("ACRY", "updateView: ${it.lf}")
+                res.data?.takeIf { it.isNotEmpty() }?.let {
+                    it.get(0).let {
+                        it.lfs?.let {
+                            meaningAdapter.setData(it)
+                        } ?: kotlin.run {
+                            activity?.let { toastMsg(it, getString(R.string.no_data)) }
                         }
-                    } ?: kotlin.run {
-                        Toast.makeText(activity, "No Data Available " + res.msg, Toast.LENGTH_LONG)
-                            .show()
                     }
+                } ?: kotlin.run {
+                    activity?.let { toastMsg(it, getString(R.string.no_data)) }
                 }
             }
             Status.ERROR -> {
                 binding.progressBar.visibility = View.GONE
-                Toast.makeText(
-                    activity,
-                    "Something went wrong... Please contact admin " + res.msg,
-                    Toast.LENGTH_LONG
-                ).show()
+                activity?.let { toastMsg(it, getString(R.string.err_admin)) }
             }
         }
     }

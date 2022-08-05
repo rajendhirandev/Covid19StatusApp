@@ -1,11 +1,7 @@
 <resources>
-    <string name="app_name">Covid19StatusApp</string>
-    <string name="splash_title">COVID19</string>
-    <string name="splash_sub_title">Corona Virus Disease 19</string>
-    <string name="under_development">Under Development</string>
-    <string name="home_title">COVID19</string>
-    <string name="confirmed_title">Confirmed</string>
-    <string name="recovered_cases">Recovered</string>
-    <string name="death_cases">Death</string>
-    <string name="countries_title">Countries</string>
+    <string name="app_name">Acromine</string>
+    <string name="input_acronym">Enter acronym text here</string>
+    <string name="splash_title">Acromine Acronym</string>
+    <string name="no_data">No Data Available</string>
+    <string name="err_admin">Something went wrong.. Please contact the admin</string>
 </resources>

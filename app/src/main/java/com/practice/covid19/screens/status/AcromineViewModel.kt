@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class HomeCovidViewModel : ViewModel() {
+class AcromineViewModel : ViewModel() {
 
     private val _meaningStateFlow = MutableStateFlow(Resource.loading(ArrayList<Acronym>()))
     val meaningStateFlow = _meaningStateFlow as StateFlow<Resource<List<Acronym>>>
