@@ -41,6 +41,7 @@ class HomeCovidFragment : Fragment() {
     }
 
     /* References
+    https://balwindersinghrajput.medium.com/complete-guide-to-livedata-and-flow-answering-why-where-when-and-which-6b31496ba7f3
     https://medium.com/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda
     https://medium.com/androiddevelopers/repeatonlifecycle-api-design-story-8670d1a7d333
     https://www.linkedin.com/pulse/kotlin-flow-simplified-paul-emeka?trk=public_profile_article_view
