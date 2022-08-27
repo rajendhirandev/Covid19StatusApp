@@ -7,22 +7,27 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.practice.covid19.R
+import com.practice.covid19.databinding.HomeCovidFragmentBinding
 import com.practice.covid19.model.Global
+import com.practice.covid19.model.Summary
+import com.practice.covid19.network.Resource
 import com.practice.covid19.network.Status
+import com.practice.covid19.utils.launchAndCollectIn
 import com.practice.covid19.utils.numberFormat
-import kotlinx.android.synthetic.main.home_covid_fragment.*
 
 class HomeCovidFragment : Fragment() {
+
+    lateinit var binding: HomeCovidFragmentBinding
 
     companion object {
         fun newInstance() = HomeCovidFragment()
     }
 
     private val viewModel: HomeCovidViewModel by viewModels()
+    //private lateinit var viewM:HomeCovidViewModel
     private val statusAdapter: HomeCovidStatusAdapter by lazy {
         HomeCovidStatusAdapter()
     }
@@ -30,53 +35,112 @@ class HomeCovidFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.home_covid_fragment, container, false)
+    ): View {
+        binding = HomeCovidFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        rv_covid_status.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        rv_covid_status.adapter = statusAdapter
+    /* References
+    https://balwindersinghrajput.medium.com/complete-guide-to-livedata-and-flow-answering-why-where-when-and-which-6b31496ba7f3
+    https://medium.com/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda
+    https://medium.com/androiddevelopers/repeatonlifecycle-api-design-story-8670d1a7d333
+    https://www.linkedin.com/pulse/kotlin-flow-simplified-paul-emeka?trk=public_profile_article_view
+    https://logidots.com/insights/live-data-flow-shared-flow-state-flow-2/#:~:text=The%20main%20difference%20between%20a,and%20emits%20nothing%20by%20default.
+    */
 
-        viewModel.getCovidStatus().observe(viewLifecycleOwner, Observer { res ->
-            when (res.status) {
-                Status.LOADING -> {
-                    progressBar?.visibility = View.VISIBLE
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //viewM = ViewModelProvider(this).get(HomeCovidViewModel::class.java)
+        binding.apply {
+            rvCovidStatus.apply {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+                adapter = statusAdapter
+            }
+
+            viewModel.getCovidStatusStateFlowOn()
+
+            logo.setOnClickListener {
+                viewModel.getCovidStatusStateFlowOn()
+            }
+        }
+
+        /*viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.summaryStateFlow
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collectLatest {
+                    updateView(it)
                 }
-                Status.SUCCESS -> {
-                    progressBar?.visibility = View.GONE
-                    res.data?.let {
-                        updateCards(it.global)
-                        it.countries?.let {
-                            statusAdapter.setData(it)
-                        } ?: kotlin.run {
-                            Toast.makeText(activity, "No Data Available", Toast.LENGTH_LONG).show()
-                        }
+        }*/
+
+        /* viewLifecycleOwner.lifecycleScope.launch {
+             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                 launch {
+                     viewModel.summaryStateFlow
+                         .collectLatest {
+                             updateView(it)
+                         }
+                 }
+                 launch {
+                     viewModel.summarySharedFlow.collectLatest {
+                         updateView(it)
+                     }
+                 }
+             }
+         }*/
+
+        viewModel.summarySharedFlow.launchAndCollectIn(viewLifecycleOwner) {
+            updateView(it)
+        }
+
+        viewModel.summaryStateFlow.launchAndCollectIn(viewLifecycleOwner) {
+            updateView(it)
+        }
+
+        viewModel.summaryLiveData.observe(viewLifecycleOwner) {
+            updateView(it)
+        }
+    }
+
+    private fun updateView(res: Resource<Summary>) {
+        when (res.status) {
+            Status.LOADING -> {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            Status.SUCCESS -> {
+                binding.progressBar.visibility = View.GONE
+                res.data?.let {
+                    updateCards(it.global)
+                    it.countries?.let {
+                        statusAdapter.setData(it)
+                    } ?: kotlin.run {
+                        Toast.makeText(activity, "No Data Available " + res.msg, Toast.LENGTH_LONG)
+                            .show()
                     }
                 }
-                Status.ERROR -> {
-                    progressBar?.visibility = View.GONE
-                    Toast.makeText(
-                        activity,
-                        "Something went wrong... Please contact admin",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
             }
-        })
+            Status.ERROR -> {
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(
+                    activity,
+                    "Something went wrong... Please contact admin " + res.msg,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     private fun updateCards(global: Global?) {
         global?.let {
-            txt_confirmed_overall?.text = it.totalConfirmed?.numberFormat()
-            txt_today_confirmed?.text = it.newConfirmed?.numberFormat()
+            binding.apply {
+                txtConfirmedOverall.text = it.totalConfirmed?.numberFormat()
+                txtTodayConfirmed.text = it.newConfirmed?.numberFormat()
 
-            txt_death_overall?.text = it.totalDeaths?.numberFormat()
-            txt_today_death?.text = it.newDeaths?.numberFormat()
+                txtDeathOverall.text = it.totalDeaths?.numberFormat()
+                txtTodayDeath.text = it.newDeaths?.numberFormat()
 
-            txt_recovered_overall?.text = it.totalRecovered?.numberFormat()
-            txt_today_recovered?.text = it.newRecovered?.numberFormat()
+                txtRecoveredOverall.text = it.totalRecovered?.numberFormat()
+                txtTodayRecovered.text = it.newRecovered?.numberFormat()
+            }
         }
     }
 }
